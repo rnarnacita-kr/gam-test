@@ -3,9 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>출근길 감 테스트 — 출근길 숫자, 당신의 감은 몇 점?</title>
+<title>너 뒤에 감있다 — 뒤를 돌아보지마</title>
 <meta name="description" content="공개 데이터로 만든 추측 게임. 10개 주제, 주제당 5문항.">
-<link rel="stylesheet" href="style.css">
+<link rel="preload" href="fonts/east-sea-dokdo-title.woff2" as="font" type="font/woff2" crossorigin>
+<!-- ?v= 는 캐시 깨기용. style.css · app.js 를 고치면 이 숫자도 함께 올린다 -->
+<link rel="stylesheet" href="style.css?v=20261031-5">
 </head>
 <body>
 
@@ -16,12 +18,19 @@
     <p id="shared-banner" class="banner" hidden></p>
     <div class="hero">
       <div class="badge-day">공개 데이터</div>
-      <h1 id="title">출근길 감 테스트</h1>
+      <h1 id="title">너 뒤에 <em class="gam">감</em>있다</h1>
       <p id="subtitle" class="muted"></p>
     </div>
     <h2 class="pick-head">골라골라, 오늘의 주제</h2>
     <p class="lead">주제를 하나 고르세요. 5문항, 1분이면 끝납니다.</p>
-    <p id="progress-note" class="fineprint" style="text-align:left"></p>
+    <!-- 진행률: 숫자 · 막대 · 남은 수는 app.js renderGrid() 가 채운다 -->
+    <div id="progress-note" class="seal">
+      <div class="seal-head"><span>봉인된 숫자의 기록</span><span id="seal-count">0 / 12</span></div>
+      <div class="seal-bar" role="progressbar" aria-label="푼 주제" aria-valuemin="0">
+        <i id="seal-fill"></i>
+      </div>
+      <p id="seal-left">아직 12개의 감이 어둠 속에 잠들어 있습니다.</p>
+    </div>
     <div id="topic-grid" class="grid"></div>
     <p class="fineprint">모든 숫자는 공개 데이터에서 직접 계산했습니다.
       정답 옆의 <b>근거 보기</b>를 누르면 어떻게 셌는지 나옵니다.</p>
@@ -70,6 +79,6 @@
 
 </main>
 
-<script src="app.js"></script>
+<script src="app.js?v=20261031-5"></script>
 </body>
 </html>

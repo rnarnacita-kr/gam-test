@@ -1,8 +1,8 @@
 {
   "id": "seoul-rain",
   "emoji": "☔",
-  "title": "비는 언제, 얼마나",
-  "blurb": "서울의 하루치 강수량 30년",
+  "title": "비는 언제, 얼마나 올까",
+  "blurb": "30년 동안 서울에 내린 비",
   "source": "Open-Meteo Archive (ERA5 재분석)",
   "source_url": "https://open-meteo.com/",
   "caveat": "ERA5 재분석 값입니다. 기상청 관측 강수량과 조금씩 다릅니다.",

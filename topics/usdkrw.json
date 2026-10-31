@@ -1,8 +1,8 @@
 {
   "id": "usdkrw",
   "emoji": "💵",
-  "title": "원달러 환율 26년",
-  "blurb": "1999년부터 오늘까지의 원달러 환율",
+  "title": "1달러는 몇 원일까",
+  "blurb": "1999년부터 지금까지, 1달러를 사려면 내야 하는 돈",
   "source": "Frankfurter (유럽중앙은행 고시)",
   "source_url": "https://frankfurter.dev/",
   "caveat": "",

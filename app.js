@@ -73,8 +73,9 @@ function show(name) {
 /* ── 시작 ────────────────────────────────────────── */
 async function boot() {
   INDEX = await (await fetch("topics.json")).json();
-  $("title").textContent = INDEX.title;
-  $("subtitle").textContent = INDEX.subtitle;
+  // 제목은 '감' 글자를, 부제는 *별표 사이* 를 핏빛으로 칠한다. 나머지는 글자 그대로
+  paint($("title"), INDEX.title, /(감)/, (p) => p === "감", "gam");
+  paint($("subtitle"), INDEX.subtitle, /(\*[^*]+\*)/, (p) => /^\*.+\*$/.test(p), "blood");
 
   const p = new URLSearchParams(location.search);
   if (p.has("s")) {
@@ -97,11 +98,32 @@ async function boot() {
   }
 }
 
+// 글자를 조각내 일부만 <em class=…> 로 감싼다. innerHTML 을 쓰지 않아 글자가 코드로 해석되지 않는다
+function paint(el, text, splitter, isMark, cls) {
+  el.textContent = "";
+  text.split(splitter).forEach((part) => {
+    if (!part) return;
+    if (isMark(part)) {
+      const em = document.createElement("em");
+      em.className = cls; em.textContent = part.replace(/^\*|\*$/g, "");
+      el.appendChild(em);
+    } else {
+      el.appendChild(document.createTextNode(part));
+    }
+  });
+}
+
 function renderGrid() {
   const done = doneMap();
   const n = INDEX.topics.filter((t) => t.id in done).length;
-  $("progress-note").textContent =
-    n ? `${INDEX.topics.length}개 중 ${n}개 풀었습니다` : "";
+  const total = INDEX.topics.length;
+  $("seal-count").textContent = `${n} / ${total}`;
+  $("seal-fill").style.width = `${total ? (n / total) * 100 : 0}%`;
+  $("seal-fill").parentElement.setAttribute("aria-valuemax", total);
+  $("seal-fill").parentElement.setAttribute("aria-valuenow", n);
+  $("seal-left").textContent = n < total
+    ? `아직 ${total - n}개의 감이 어둠 속에 잠들어 있습니다.`
+    : "모든 감이 깨어났습니다.";
   $("topic-grid").innerHTML = "";
   INDEX.topics.forEach((t) => {
     const b = document.createElement("button");
@@ -110,6 +132,7 @@ function renderGrid() {
       `<span class="temoji">${t.emoji}</span>` +
       `<span class="ttitle">${t.title}</span>` +
       `<span class="tblurb">${t.blurb}</span>` +
+      `<span class="tchev" aria-hidden="true">›</span>` +
       (t.id in done ? `<span class="tscore">${done[t.id]}점</span>` : "");
     b.onclick = () => start(t.id);
     $("topic-grid").appendChild(b);

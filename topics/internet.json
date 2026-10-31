@@ -1,8 +1,8 @@
 {
   "id": "internet",
   "emoji": "🌐",
-  "title": "인터넷과 연결",
-  "blurb": "나라별 인터넷 사용 인구 비율",
+  "title": "인터넷은 몇 명이나 쓸까",
+  "blurb": "나라마다 인터넷을 쓰는 사람은 얼마나 될까",
   "source": "World Bank Open Data",
   "source_url": "https://data.worldbank.org/",
   "caveat": "",

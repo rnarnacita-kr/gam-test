@@ -238,38 +238,179 @@ details[open] summary::after { content: " ▴"; }
 
 @media (min-width: 420px) { .grid { gap: 12px; } }
 
-/* ── 첫 화면: 시안의 색 · 제목 배치 ──────────────────
-   민트 바탕, 흰 카드, 검정 테두리와 글자, 파란 머리글 배지.
-   왼쪽 정렬로 배지 → 큰 제목 → 상자 안 부제 → 주제 목록 제목. 홈 화면에만 적용된다. */
+/* ── 첫 화면: 한국형 오컬트 공포 ─────────────────────────
+   핏빛 달 · 붉은 폐가 · 매달린 홍시 배경(bg-home.jpg — bg-home.png 를 가볍게 줄인 것) 위에
+   붓글씨 제목, 낡은 종이 부제, 아이보리 종이 카드 2열.
+   홈 화면에만 적용된다. 문항 · 결과 화면은 위의 기본 규칙을 그대로 쓴다.
+   움직임은 '움직임 줄이기' 설정이면 위의 prefers-reduced-motion 규칙이 모두 끈다. */
+/* 제목 붓글씨 — East Sea Dokdo (SIL OFL, fonts/OFL.txt).
+   '너 뒤에 감있다' 글자만 담은 11KB 파일이라, 제목을 바꾸면 없는 글자는 기본 글꼴로 나온다.
+   새 제목 글자로 다시 받으려면 Google Fonts 주소에 &text=새제목 을 붙여 받는다. */
+@font-face {
+  font-family: "East Sea Dokdo";
+  src: url("fonts/east-sea-dokdo-title.woff2") format("woff2");
+  font-display: swap;
+}
 #view-home {
-  --ink: #111111;
-  --muted: #2f5a4d;
-  --card: #ffffff;
-  --line: #111111;
-  --brand: #2563eb;
-  --ok: #0f7a52;
+  --ink: #f2e6d3;            /* 낡은 아이보리 */
+  --muted: #cbbfae;
+  --card: #e8d9be;           /* 오래된 양피지 */
+  --line: #8c3530;           /* 어두운 붉은 테두리 */
+  --brand: #d92323;          /* 핏빛 */
+  --ok: #2f6b3a;
   color: var(--ink);
 }
-/* html, body 둘 다 어두운 배경을 칠하므로 홈 화면일 때는 둘 다 덮어쓴다. */
+
+/* 배경: 그림이 안 떠도 어두운 단색이 남는다.
+   그림은 화면에 붙은 층(::before)에 깔아, 스크롤해도 고정된 느낌을 준다
+   (모바일 사파리는 background-attachment: fixed 를 무시하므로 이 방식을 쓴다). */
 html:has(#view-home:not([hidden])),
-html:has(#view-home:not([hidden])) body { background: #86e8c6; }
+html:has(#view-home:not([hidden])) body {
+  background: #0b0607;
+  overflow-x: hidden;
+}
+html:has(#view-home:not([hidden])) body::before {
+  content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,.45) 35%,
+                    rgba(0,0,0,.78) 62%, rgba(0,0,0,.9) 100%),
+    url("bg-home.jpg") center top / cover no-repeat,
+    #0b0607;
+}
+#app { position: relative; z-index: 1; }
 
-#view-home .hero { text-align: left; padding: 30px 0 22px; }
+/* 머리 — 배지 · 제목 · 부제 */
+#view-home .hero { text-align: center; padding: 96px 0 20px; }
 #view-home .badge-day {
-  color: #fff; background: var(--brand); border: 2px solid var(--ink); letter-spacing: 0;
-  font-size: 12px; padding: 4px 12px;
+  color: var(--ink); background: rgba(20,6,6,.6); border: 1px solid #7a2222;
+  font-size: 11px; padding: 3px 12px; letter-spacing: 2px;
 }
-#view-home h1 { margin: 12px 0 12px; }
+#view-home h1 {
+  margin: 14px 0 18px; font-size: clamp(46px, 14vw, 62px); line-height: 1.08;
+  font-family: "East Sea Dokdo", "Malgun Gothic", sans-serif; font-weight: 400;
+  color: #f2e6d3; word-break: keep-all; overflow-wrap: anywhere;
+  text-shadow: 0 0 12px rgba(217,35,35,.3), 2px 3px 0 rgba(0,0,0,.85);
+  animation: rise 1.6s ease-out both;
+}
+#view-home h1 .gam {
+  font-style: normal; color: #e32323 !important;
+  -webkit-text-fill-color: #e32323;
+  text-shadow: 0 0 14px rgba(217,35,35,.55), 2px 3px 0 rgba(0,0,0,.85);
+}
+/* 낡고 찢긴 종이 — 아이보리 바탕에 옅은 핏자국 두 점, 바랜 가장자리 */
 #view-home #subtitle {
-  display: inline-block; margin: 0; padding: 7px 14px;
-  background: #fff; color: var(--ink); font-weight: 700; font-size: 14.5px;
-  border: 2px solid var(--ink); border-radius: 14px;
+  display: inline-block; max-width: 100%; margin: 0; padding: 13px 30px;
+  background:
+    radial-gradient(circle at 86% 30%, rgba(140,20,20,.22) 0 7px, rgba(140,20,20,.08) 12px, transparent 20px),
+    radial-gradient(ellipse at 12% 78%, rgba(140,20,20,.16) 0 4px, transparent 14px),
+    radial-gradient(ellipse at 50% 50%, transparent 55%, rgba(90,60,30,.35) 100%),
+    linear-gradient(180deg, #efe3cb, #d9c7a3);
+  color: #1a120d; font-weight: 700; font-size: 15px; line-height: 1.5;
+  border: 0; border-radius: 0; white-space: pre-line;
+  clip-path: polygon(0 14%, 3% 2%, 11% 9%, 19% 0, 31% 7%, 42% 1%, 55% 10%, 66% 2%, 78% 8%, 89% 0, 100% 6%,
+                     98% 34%, 100% 58%, 97% 90%, 88% 100%, 76% 92%, 63% 99%, 50% 91%, 37% 100%,
+                     24% 93%, 12% 100%, 3% 91%, 1% 64%, 3% 38%);
+  filter: drop-shadow(0 5px 9px rgba(0,0,0,.65));
+  animation: rise 1.6s .3s ease-out both;
 }
-#view-home .pick-head { font-size: 18px; margin: 8px 0 0; }
-#view-home .lead { margin: 2px 0 10px; font-size: 13px; color: var(--muted); }
-#view-home .banner { background: #fff; }
-#view-home .banner b { color: var(--brand); }
+#view-home #subtitle .blood { font-style: normal; color: #b01b1b; }
+@keyframes rise { from { opacity: 0; transform: translateY(8px) } to { opacity: 1; transform: none } }
 
-#view-home .tcard { background: var(--card); border-color: var(--line); }
-#view-home .tcard.done { border-color: var(--ok); }
-#view-home .tblurb { color: #4a4a4a; }
+/* 주제 고르기 머리글 */
+#view-home .pick-head {
+  display: flex; align-items: center; gap: 12px; justify-content: center;
+  font-size: 19px; margin: 14px 0 2px; color: var(--ink);
+}
+#view-home .pick-head::before, #view-home .pick-head::after {
+  content: ""; flex: 1; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(217,35,35,.7));
+}
+#view-home .pick-head::after { transform: scaleX(-1); }
+#view-home .lead { margin: 0 0 12px; font-size: 13px; color: var(--muted); text-align: center; }
+#view-home .fineprint { color: var(--muted); }
+#view-home .banner { background: var(--card); color: #241713; border-color: var(--line); }
+#view-home .banner b { color: #b01b1b; }
+
+/* 진행률 — 봉인된 숫자의 기록 (어두운 반투명 패널 + 핏빛 막대) */
+#view-home .seal {
+  background: rgba(14,6,6,.72); border: 1px solid rgba(140,53,48,.7);
+  border-radius: 12px; padding: 12px 14px 10px; margin: 0 0 14px;
+  box-shadow: 0 6px 16px rgba(0,0,0,.5), inset 0 0 18px rgba(140,20,20,.18);
+}
+#view-home .seal-head {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  font-size: 13.5px; font-weight: 700; color: var(--ink); letter-spacing: .5px;
+}
+#view-home #seal-count { font-variant-numeric: tabular-nums; color: #e9a19a; }
+#view-home .seal-bar {
+  height: 8px; margin: 9px 0 8px; border-radius: 99px; overflow: hidden;
+  background: rgba(242,230,211,.12); border: 1px solid rgba(140,53,48,.5);
+}
+#view-home #seal-fill {
+  display: block; height: 100%; width: 0; border-radius: 99px;
+  background: linear-gradient(90deg, #6e0f0f, #d92323);
+  box-shadow: 0 0 8px rgba(217,35,35,.6);
+  transition: width .9s cubic-bezier(.22,1,.36,1);
+}
+#view-home #seal-left { margin: 0; font-size: 12px; color: var(--muted); }
+
+/* 카드 2열 — 오래된 양피지, 어두운 붉은 테두리 */
+#view-home .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+#view-home .tcard {
+  background:
+    repeating-linear-gradient(0deg, rgba(90,60,30,.035) 0 1px, transparent 1px 3px),
+    radial-gradient(ellipse at 50% 40%, transparent 50%, rgba(90,60,30,.28) 100%),
+    var(--card);
+  color: #241713; border: 1px solid var(--line); border-radius: 12px;
+  box-shadow: 0 6px 14px rgba(0,0,0,.55);
+  min-height: 118px; height: auto; padding: 14px 26px 14px 13px; min-width: 0;
+  overflow-wrap: anywhere; word-break: keep-all;
+  transition: transform .08s ease, border-color .15s ease, box-shadow .15s ease;
+}
+/* 누르면 핏빛 테두리, 미세하게 눌림 */
+#view-home .tcard:active,
+#view-home .tcard:focus-visible {
+  transform: scale(.97); border-color: #d92323; outline: none;
+  box-shadow: 0 0 0 1px #d92323, 0 4px 14px rgba(217,35,35,.4);
+}
+/* 푼 카드 — 아주 약한 붉은 빛. 점수 표시는 그대로 */
+#view-home .tcard.done {
+  border-color: #b33a33;
+  box-shadow: 0 6px 14px rgba(0,0,0,.55), 0 0 12px rgba(217,35,35,.28);
+}
+#view-home .ttitle { color: #241713; font-weight: 800; }
+#view-home .tblurb { color: #5b4a43; }
+#view-home .tscore { color: #8c3530; }
+#view-home .tchev {
+  position: absolute; right: 9px; top: 50%; transform: translateY(-50%);
+  font-size: 22px; color: #8c3530; font-weight: 700; pointer-events: none;
+}
+#view-home .tcard.done .tchev { display: none; }
+
+/* 제목 강조: 사용자 지정 글꼴 및 브라우저별 글자색 상속 방지 */
+#view-home #title > em.gam { color: #e32323 !important; -webkit-text-fill-color: #e32323; font-style: normal; }
+
+/* 2026-10-31 — 시안 기반 홈 UI 디테일 개선. 배경 레이어는 변경하지 않음. */
+#view-home .hero { padding-top: 66px; padding-bottom: 24px; }
+#view-home .badge-day { font-size: 12px; letter-spacing: 2.5px; padding: 4px 15px; border-color: #a63c32; box-shadow: 0 0 0 2px rgba(0,0,0,.2); }
+#view-home h1 { font-size: clamp(52px, 15vw, 76px); margin: 17px 0 23px; line-height: 1.03; text-shadow: 2px 4px 1px #190606, 0 0 20px rgba(0,0,0,.8); }
+#view-home h1 .gam { color: #f3211d !important; -webkit-text-fill-color: #f3211d; text-shadow: 0 0 16px rgba(255,23,23,.55), 2px 3px #290303; }
+#view-home #subtitle { padding: 14px 28px; font-size: 16px; box-shadow: 0 8px 20px rgba(0,0,0,.35); background: radial-gradient(circle at 89% 24%, rgba(139,4,4,.42) 0 3px, transparent 9px), radial-gradient(circle at 93% 45%, rgba(139,4,4,.32) 0 5px, transparent 11px), radial-gradient(ellipse at center, transparent 45%, rgba(104,60,23,.22)), linear-gradient(#f5e6c8,#d8b98d); }
+#view-home .pick-head { margin-top: 20px; margin-bottom: 2px; font-size: clamp(18px, 5vw, 23px); text-shadow: 0 2px 4px #000; }
+#view-home .pick-head::before, #view-home .pick-head::after { height: 2px; }
+#view-home .lead { font-size: 13px; margin-bottom: 17px; text-shadow: 0 2px 3px #000; }
+#view-home .seal { padding: 15px 17px 13px; margin-bottom: 15px; border: 1px solid #a33a32; background: linear-gradient(130deg,rgba(19,4,5,.9),rgba(25,6,8,.8)); border-radius: 9px; box-shadow: 0 8px 20px rgba(0,0,0,.65), inset 0 0 25px rgba(116,16,16,.16); }
+#view-home .seal-head { font-size: 15px; }
+#view-home #seal-count { font-size: 18px; color: #f2c3b4; }
+#view-home .seal-bar { height: 10px; margin: 11px 0 9px; border-color: #a33a32; background: #280e0e; }
+#view-home #seal-fill { background: linear-gradient(90deg,#9a1111,#ff2922,#c20b0b); box-shadow: 0 0 12px rgba(255,40,25,.8); }
+#view-home #seal-left { font-size: 12px; }
+#view-home .grid { gap: 11px; }
+#view-home .tcard { padding: 15px 24px 16px 14px; min-height: 136px; border-radius: 10px 14px 9px 12px; border: 1px solid #77332a; background: radial-gradient(circle at 95% 95%,rgba(105,69,34,.23),transparent 48%), radial-gradient(circle at 0% 0%,rgba(117,67,29,.18),transparent 45%), repeating-linear-gradient(0deg,rgba(91,55,29,.023) 0 1px,transparent 1px 4px),linear-gradient(145deg,#f3e2bd,#e6cca0 75%,#d3ae79); box-shadow: 2px 4px 0 rgba(53,10,8,.7),0 8px 16px rgba(0,0,0,.55),inset 0 0 15px rgba(108,68,31,.2); }
+#view-home .temoji { font-size: 27px; margin-bottom: 5px; }
+#view-home .ttitle { font-size: 14px; line-height: 1.34; color: #24120e; }
+#view-home .tblurb { font-size: 11.5px; line-height: 1.45; color: #554038; }
+#view-home .tchev { color: #922018; font-size: 24px; }
+#view-home .tscore { color: #9d211a; font-size: 12px; }
+@media(max-width:360px){ #app {padding-left:14px;padding-right:14px;} #view-home .tcard{padding-left:11px;padding-right:19px;} #view-home .ttitle{font-size:13px;} #view-home .tblurb{font-size:11px;} }
+

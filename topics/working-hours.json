@@ -1,8 +1,8 @@
 {
   "id": "working-hours",
   "emoji": "⏰",
-  "title": "우리는 얼마나 일하나",
-  "blurb": "나라별 1인당 연간 노동시간",
+  "title": "우리는 얼마나 일할까",
+  "blurb": "나라마다 한 사람이 1년에 일하는 시간",
   "source": "Our World in Data",
   "source_url": "https://ourworldindata.org/grapher/annual-working-hours-per-worker",
   "caveat": "이 자료에는 개발도상국이 많이 포함돼 있어, OECD 안에서의 순위와 전체 순위가 다릅니다. '어느 집단과 비교하느냐'가 순위를 만듭니다.",

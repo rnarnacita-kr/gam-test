@@ -117,8 +117,8 @@ peak_day = hot_days.most_common(1)[0]
 hottest = max(W, key=lambda x: x["hi"])
 
 topic(
-    "seoul-heat", "🌡️", "서울은 얼마나 더워졌나",
-    "1950년부터 2024년까지, 서울의 매일 기온",
+    "seoul-heat", "🌡️", "서울은 얼마나 더워졌을까",
+    "옛날 서울과 지금 서울 얼마나 다를까",
     "Open-Meteo Archive (ERA5 재분석)", "https://open-meteo.com/",
     [
         slider("h1", "2024년 서울에서 열대야(밤 최저기온 25도 이상)는 며칠이었을까요?",
@@ -188,8 +188,8 @@ def days_to_half(y):
 half_days = round(mean(days_to_half(y) for y in range(1995, 2025)))
 
 topic(
-    "seoul-rain", "☔", "비는 언제, 얼마나",
-    "서울의 하루치 강수량 30년",
+    "seoul-rain", "☔", "비는 언제, 얼마나 올까",
+    "30년 동안 서울에 내린 비",
     "Open-Meteo Archive (ERA5 재분석)", "https://open-meteo.com/",
     [
         slider("r1", "서울에서 1년 중 비가 온 날(1mm 이상)은 며칠쯤일까요?",
@@ -247,8 +247,8 @@ bad_ratio = sum(1 for v in d24.values() if v > 35) / len(d24) * 100
 worse_year = "2023년" if mean(d23.values()) > mean(d24.values()) else "2024년"
 
 topic(
-    "seoul-air", "😷", "미세먼지, 언제 나쁜가",
-    "서울의 시간별 초미세먼지 2년치",
+    "seoul-air", "😷", "미세먼지는 언제 나쁠까",
+    "2년 동안 매시간 잰 서울 공기 측정",
     "Open-Meteo Air Quality (CAMS)", "https://open-meteo.com/",
     [
         choice("a1", "초미세먼지(PM2.5)가 가장 나쁜 달은?",
@@ -303,8 +303,8 @@ shortest = min(trio, key=trio.get)
 name_ko = {"South Korea": "한국", "Japan": "일본", "Germany": "독일"}
 
 topic(
-    "working-hours", "⏰", "우리는 얼마나 일하나",
-    "나라별 1인당 연간 노동시간",
+    "working-hours", "⏰", "우리는 얼마나 일할까",
+    "나라마다 한 사람이 1년에 일하는 시간",
     "Our World in Data", "https://ourworldindata.org/grapher/annual-working-hours-per-worker",
     [
         slider("w1", f"{latest_year}년 한국의 1인당 연간 노동시간은?",
@@ -357,8 +357,8 @@ old_latest = max(old)
 urb_latest = max(urb)
 
 topic(
-    "population", "👶", "인구와 출산",
-    "전 세계 출산율과 한국의 인구 구조",
+    "population", "👶", "아기는 얼마나 태어날까",
+    "세계에서 태어나는 아기와 나이 들어 가는 한국",
     "World Bank Open Data", "https://data.worldbank.org/",
     [
         slider("p1", f"{f_latest}년 한국의 합계출산율(여성 1명당 출생아 수)은?",
@@ -403,8 +403,8 @@ if world is None:
 offline = 100 - world
 
 topic(
-    "internet", "🌐", "인터넷과 연결",
-    "나라별 인터넷 사용 인구 비율",
+    "internet", "🌐", "인터넷은 몇 명이나 쓸까",
+    "나라마다 인터넷을 쓰는 사람은 얼마나 될까",
     "World Bank Open Data", "https://data.worldbank.org/",
     [
         slider("i1", f"{n_latest}년 한국에서 인터넷을 쓰는 사람의 비율은?",
@@ -443,8 +443,8 @@ era = ("1997~1999년 외환위기" if hi_d < "2005" else
        "2020년 코로나" if hi_d < "2022" else "2022년 이후")
 
 topic(
-    "usdkrw", "💵", "원달러 환율 26년",
-    "1999년부터 오늘까지의 원달러 환율",
+    "usdkrw", "💵", "1달러는 몇 원일까",
+    "1999년부터 지금까지, 1달러를 사려면 내야 하는 돈",
     "Frankfurter (유럽중앙은행 고시)", "https://frankfurter.dev/",
     [
         slider("x1", "1999년 이후 원달러 환율의 최고 기록은?",
@@ -495,7 +495,7 @@ colder = "서울" if c_jan["seoul"] < c_jan["tokyo"] else "도쿄"
 
 topic(
     "cities", "🏙️", "서울·도쿄·런던·싱가포르",
-    "네 도시의 30년 평년값 (1991~2020)",
+    "네 도시의 30년 날씨 비교하기",
     "Open-Meteo Archive (ERA5 재분석)", "https://open-meteo.com/",
     [
         choice("c1", "1년 강수량이 가장 적은 도시는?",
@@ -547,8 +547,8 @@ kr_band = ("50건 미만" if len(QK) < 50 else "50~150건" if len(QK) <= 150
            else "150~400건" if len(QK) <= 400 else "400건 이상")
 
 topic(
-    "quakes", "🌎", "지진은 얼마나 자주",
-    "2000~2024년 전 세계 지진 기록",
+    "quakes", "🌎", "지진은 얼마나 자주 날까",
+    "2000년부터 2024년까지 세계에서 일어난 지진",
     "USGS 지진 카탈로그", "https://earthquake.usgs.gov/",
     [
         slider("q1", "규모 5.5 이상 지진은 전 세계에서 1년에 몇 번쯤 일어날까요?",
@@ -621,8 +621,8 @@ _sd = {x["d"]: x["snow"] for x in S}
 nov24 = (_sd[dt.date(2024, 11, 27)], _sd[dt.date(2024, 11, 28)])
 
 topic(
-    "seoul-snow", "❄️", "서울에 눈은 얼마나 오나",
-    "1990년부터 2024년까지, 서울의 하루 강설량",
+    "seoul-snow", "❄️", "서울에 눈은 얼마나 올까",
+    "1990년부터 2024년까지 서울에 내린 눈",
     "Open-Meteo Archive (ERA5 재분석)", "https://open-meteo.com/",
     [
         slider("s1", "1990~2024년, 서울에서 한 해에 눈이 온 날은 평균 며칠일까요?",
@@ -684,8 +684,8 @@ top_l = max(trio_l, key=trio_l.get)
 name_l = {"South Korea": "한국", "Japan": "일본", "United States": "미국"}
 
 topic(
-    "life", "🩺", "얼마나 오래 사나",
-    "나라별 기대수명 1950~현재",
+    "life", "🩺", "사람은 얼마나 오래 살까",
+    "1950년부터 지금까지, 나라마다 사는 햇수",
     "Our World in Data", "https://ourworldindata.org/grapher/life-expectancy",
     [
         slider("l1", f"{l_latest}년 한국의 기대수명은?",
@@ -714,6 +714,96 @@ topic(
                f"{l_latest}년 세계 평균 {wld:.1f}세 · 한국 {kor_l:.1f}세",
                "내가 사는 곳의 수준을 세계 평균으로 착각하기 쉽습니다."),
     ])
+
+# ── AI ───────────────────────────────────────────────────────────
+# 어려운 말(매개변수 · 연산량)은 쓰지 않는다. 개수 · 연도 · 몇 배로만 묻는다.
+# 한 AI 를 여러 회사 · 나라가 함께 만들었으면 참여한 곳마다 1개씩 센다.
+# 회사는 모회사로 묶는다 — 같은 AI 에 Google 과 Google Brain 이 함께 있으면 Google 1개.
+AI = load_csv("epoch_notable_ai_models.csv")
+for x in AI:
+    x["year"] = int(x["Publication date"][:4])
+
+
+def parent(org):
+    """원본의 기관 이름을 모회사로 묶는다. 목록에 없는 곳은 이름 그대로."""
+    if org.startswith("Google") or org == "DeepMind":
+        return "Google"
+    if org in ("Meta AI", "Facebook", "Facebook AI", "Facebook AI Research"):
+        return "Meta"          # 'MetaMind Inc' 는 Salesforce 쪽이라 넣지 않는다
+    if org.startswith("Microsoft"):
+        return "Microsoft"
+    if org.startswith("LG"):          # LG · LG AI Research
+        return "LG"
+    if org.startswith("Samsung"):     # Samsung · Samsung R&D Institute Russia
+        return "Samsung"
+    return org
+
+
+def split(cell):
+    return {s.strip() for s in cell.split(",") if s.strip()}
+
+
+# 개수 대신 배수로 묻는다 — 나중에 몇 개가 더 들어오거나 버전을 묶어 세도 크게 안 흔들린다
+ai_2010 = sum(1 for x in AI if x["year"] == 2010)
+ai_2025 = sum(1 for x in AI if x["year"] == 2025)
+ai_ratio = ai_2025 / ai_2010
+ai_kor = sum(1 for x in AI if "South Korea" in split(x["Country (of organization)"]))
+ai_first, ai_last = min(x["year"] for x in AI), max(x["year"] for x in AI)
+# 기간이 없는 문항은 '언제까지 센 값인지'를 문장에 넣는다 — 원본의 마지막 발표일에서
+_last = max(x["Publication date"] for x in AI)
+until = f"{_last[:4]}년 {int(_last[5:7])}월까지"
+by_org = Counter(p for x in AI for p in {parent(o) for o in split(x["Organization"])})
+top_org = by_org.most_common(1)[0]
+five = ("Google", "OpenAI", "Meta", "Microsoft", "Nvidia")
+oldest = min(AI, key=lambda x: x["Publication date"])
+# 한국이 함께 만든 AI 안에서, 참여한 곳(모회사 기준)마다 1개씩 센다
+by_kor_org = Counter(p for x in AI if "South Korea" in split(x["Country (of organization)"])
+                     for p in {parent(o) for o in split(x["Organization"])})
+top_kor = by_kor_org.most_common(1)[0]
+kor_ko = {"Samsung": "삼성", "NAVER": "네이버", "LG": "LG",
+          "Korea Advanced Institute of Science and Technology (KAIST)": "KAIST",
+          "Seoul National University": "서울대"}
+
+topic(
+    "ai", "🤖", "AI는 얼마나 많아졌을까",
+    "세상에 나온 AI를 하나하나 세어 보면",
+    "Epoch AI", "https://epoch.ai/data/notable-ai-models",
+    [
+        slider("ai1", "2025년에 새로 나온 AI는 2010년의 몇 배일까요?",
+               ai_ratio, "배", 1, 100, 1,
+               f"Epoch AI 목록에서 발표일이 2010년인 AI {ai_2010}개 → 2025년 "
+               f"{ai_2025}개 ({ai_ratio:.1f}배)",
+               "뉴스에 나오는 AI 몇 개가 전부처럼 느껴지지만, 한 해에 나오는 "
+               "AI는 그보다 훨씬 많습니다."),
+        slider("ai2", f"{until} 한국이 함께 만든 AI는 몇 개일까요?",
+               ai_kor, "개", 0, 200, 1,
+               f"Epoch AI 목록 {len(AI):,}개({ai_first}~{ai_last}년) 중 만든 곳의 "
+               f"나라에 한국이 들어 있는 AI {ai_kor}개 (여러 나라가 함께 만든 AI도 "
+               f"1개로 셈)",
+               "한국이 IT 강국이라는 인상과, 세계 목록에 오른 AI의 수는 다른 "
+               "이야기입니다."),
+        choice("ai3", "AI를 가장 많이 만든 회사는 어디일까요?",
+               list(five), top_org[0],
+               "Epoch AI 목록에서 회사별로 참여한 AI 수(Google·DeepMind 계열, "
+               "Meta·Facebook 계열, Microsoft 계열은 하나로 묶음) "
+               + " · ".join(f"{c} {by_org[c]}개" for c in five),
+               "요즘 가장 유명한 회사와 오랫동안 가장 많이 만든 회사는 다를 수 "
+               "있습니다."),
+        slider("ai4", "가장 오래된 AI는 몇 년에 나왔을까요?",
+               int(oldest["Publication date"][:4]), "년", 1900, 2020, 1,
+               f"Epoch AI 목록에서 발표일이 가장 이른 AI는 «{oldest['Model']}» "
+               f"({oldest['Publication date']})",
+               "AI는 최근에 생긴 것 같지만, 연구는 훨씬 오래전에 시작됐습니다."),
+        choice("ai5", f"{until} 한국에서 AI를 가장 많이 만든 곳은 어디일까요?",
+               list(kor_ko.values()), kor_ko[top_kor[0]],
+               f"Epoch AI 목록에서 한국이 함께 만든 AI {ai_kor}개를 참여한 곳마다 "
+               f"1개씩 센 값 (LG·LG AI Research, 삼성 계열은 하나로 묶음) "
+               + " · ".join(f"{kor_ko[c]} {by_kor_org[c]}개" for c in kor_ko),
+               "가장 큰 회사가 가장 많이 만들었을 것 같지만, 세계 목록에 이름을 "
+               "올린 수는 회사 크기와 다릅니다."),
+    ],
+    caveat="Epoch AI는 '이름난 AI'를 자기 기준(많이 인용됐거나, 기록을 깼거나, "
+           "많이 쓰인 것)으로 골라 모은 목록이라, 세상의 모든 AI가 아닙니다.")
 
 
 # ════════════════════════════════════════════════════════════════

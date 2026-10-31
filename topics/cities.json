@@ -2,7 +2,7 @@
   "id": "cities",
   "emoji": "🏙️",
   "title": "서울·도쿄·런던·싱가포르",
-  "blurb": "네 도시의 30년 평년값 (1991~2020)",
+  "blurb": "네 도시의 30년 날씨 비교하기",
   "source": "Open-Meteo Archive (ERA5 재분석)",
   "source_url": "https://open-meteo.com/",
   "caveat": "ERA5 재분석 값이고, 도시별로 관측소 위치와 기준이 다릅니다.",

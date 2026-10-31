@@ -1,0 +1,77 @@
+{
+  "id": "ai",
+  "emoji": "🤖",
+  "title": "AI는 얼마나 많아졌을까",
+  "blurb": "세상에 나온 AI를 하나하나 세어 보면",
+  "source": "Epoch AI",
+  "source_url": "https://epoch.ai/data/notable-ai-models",
+  "caveat": "Epoch AI는 '이름난 AI'를 자기 기준(많이 인용됐거나, 기록을 깼거나, 많이 쓰인 것)으로 골라 모은 목록이라, 세상의 모든 AI가 아닙니다.",
+  "questions": [
+    {
+      "id": "ai1",
+      "type": "slider",
+      "text": "2025년에 새로 나온 AI는 2010년의 몇 배일까요?",
+      "unit": "배",
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "answer": 10.9,
+      "basis": "Epoch AI 목록에서 발표일이 2010년인 AI 10개 → 2025년 109개 (10.9배)",
+      "why": "뉴스에 나오는 AI 몇 개가 전부처럼 느껴지지만, 한 해에 나오는 AI는 그보다 훨씬 많습니다."
+    },
+    {
+      "id": "ai2",
+      "type": "slider",
+      "text": "2026년 10월까지 한국이 함께 만든 AI는 몇 개일까요?",
+      "unit": "개",
+      "min": 0,
+      "max": 200,
+      "step": 1,
+      "answer": 28.0,
+      "basis": "Epoch AI 목록 1,091개(1950~2026년) 중 만든 곳의 나라에 한국이 들어 있는 AI 28개 (여러 나라가 함께 만든 AI도 1개로 셈)",
+      "why": "한국이 IT 강국이라는 인상과, 세계 목록에 오른 AI의 수는 다른 이야기입니다."
+    },
+    {
+      "id": "ai3",
+      "type": "choice",
+      "text": "AI를 가장 많이 만든 회사는 어디일까요?",
+      "options": [
+        "Google",
+        "OpenAI",
+        "Meta",
+        "Microsoft",
+        "Nvidia"
+      ],
+      "answer": "Google",
+      "basis": "Epoch AI 목록에서 회사별로 참여한 AI 수(Google·DeepMind 계열, Meta·Facebook 계열, Microsoft 계열은 하나로 묶음) Google 218개 · OpenAI 81개 · Meta 92개 · Microsoft 49개 · Nvidia 32개",
+      "why": "요즘 가장 유명한 회사와 오랫동안 가장 많이 만든 회사는 다를 수 있습니다."
+    },
+    {
+      "id": "ai4",
+      "type": "slider",
+      "text": "가장 오래된 AI는 몇 년에 나왔을까요?",
+      "unit": "년",
+      "min": 1900,
+      "max": 2020,
+      "step": 1,
+      "answer": 1950.0,
+      "basis": "Epoch AI 목록에서 발표일이 가장 이른 AI는 «Theseus» (1950-07-02)",
+      "why": "AI는 최근에 생긴 것 같지만, 연구는 훨씬 오래전에 시작됐습니다."
+    },
+    {
+      "id": "ai5",
+      "type": "choice",
+      "text": "2026년 10월까지 한국에서 AI를 가장 많이 만든 곳은 어디일까요?",
+      "options": [
+        "삼성",
+        "네이버",
+        "LG",
+        "KAIST",
+        "서울대"
+      ],
+      "answer": "LG",
+      "basis": "Epoch AI 목록에서 한국이 함께 만든 AI 28개를 참여한 곳마다 1개씩 센 값 (LG·LG AI Research, 삼성 계열은 하나로 묶음) 삼성 2개 · 네이버 5개 · LG 8개 · KAIST 5개 · 서울대 4개",
+      "why": "가장 큰 회사가 가장 많이 만들었을 것 같지만, 세계 목록에 이름을 올린 수는 회사 크기와 다릅니다."
+    }
+  ]
+}

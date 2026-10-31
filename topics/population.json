@@ -1,8 +1,8 @@
 {
   "id": "population",
   "emoji": "👶",
-  "title": "인구와 출산",
-  "blurb": "전 세계 출산율과 한국의 인구 구조",
+  "title": "아기는 얼마나 태어날까",
+  "blurb": "세계에서 태어나는 아기와 나이 들어 가는 한국",
   "source": "World Bank Open Data",
   "source_url": "https://data.worldbank.org/",
   "caveat": "",

@@ -1,8 +1,8 @@
 {
   "id": "life",
   "emoji": "🩺",
-  "title": "얼마나 오래 사나",
-  "blurb": "나라별 기대수명 1950~현재",
+  "title": "사람은 얼마나 오래 살까",
+  "blurb": "1950년부터 지금까지, 나라마다 사는 햇수",
   "source": "Our World in Data",
   "source_url": "https://ourworldindata.org/grapher/life-expectancy",
   "caveat": "",

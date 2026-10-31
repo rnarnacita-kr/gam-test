@@ -124,6 +124,30 @@ SOURCES: list[tuple[str, str, str]] = [
      "?format=geojson&starttime=2000-01-01&endtime=2024-12-31"
      "&minmagnitude=3.0&minlatitude=33&maxlatitude=39.5"
      "&minlongitude=124&maxlongitude=132&limit=20000"),
+
+    ("unicef_immunisation_kor.csv",
+     "한국 영유아 예방접종률 1980~2025 (UNICEF SDMX · WHO/UNICEF 추정치)",
+     "https://sdmx.data.unicef.org/ws/public/sdmxapi/rest/data/UNICEF,IMMUNISATION,1.0/KOR.."
+     "?format=csv&startPeriod=1980&endPeriod=2025"),
+
+    ("measles_cases.csv",
+     "홍역 보고 환자 수 나라별 (Our World in Data · WHO)",
+     "https://ourworldindata.org/grapher/reported-cases-of-measles.csv"
+     "?csvType=full&useColumnShortNames=true"),
+
+    ("measles_cases_deaths_us.csv",
+     "미국 홍역 환자·사망자 수 (Our World in Data)",
+     "https://ourworldindata.org/grapher/measles-cases-and-death.csv"
+     "?csvType=full&useColumnShortNames=true"),
+
+    ("epoch_notable_ai_models.csv",
+     "주요 AI 모델 목록 — 발표일·기관·분야·매개변수·학습 연산량 (Epoch AI)",
+     "https://epoch.ai/data/notable_ai_models.csv"),
+
+    ("openalex_ai_works_by_year.json",
+     "인공지능 분야 논문 수 연도별 (OpenAlex · 개념 C154945302)",
+     "https://api.openalex.org/works?filter=concepts.id:C154945302"
+     "&group_by=publication_year&per_page=200"),
 ]
 
 

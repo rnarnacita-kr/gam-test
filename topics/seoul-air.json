@@ -1,8 +1,8 @@
 {
   "id": "seoul-air",
   "emoji": "😷",
-  "title": "미세먼지, 언제 나쁜가",
-  "blurb": "서울의 시간별 초미세먼지 2년치",
+  "title": "미세먼지는 언제 나쁠까",
+  "blurb": "2년 동안 매시간 잰 서울 공기 측정",
   "source": "Open-Meteo Air Quality (CAMS)",
   "source_url": "https://open-meteo.com/",
   "caveat": "CAMS 대기질 모델의 추정값입니다. 에어코리아 측정소 실측값과 다를 수 있습니다.",
