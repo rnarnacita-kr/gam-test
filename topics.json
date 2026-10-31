@@ -52,6 +52,27 @@
   ],
   "topics": [
     {
+      "id": "ai",
+      "emoji": "🤖",
+      "title": "AI는 얼마나 많아졌을까",
+      "blurb": "세상에 나온 AI를 하나하나 세어 보면",
+      "source": "Epoch AI"
+    },
+    {
+      "id": "death",
+      "emoji": "🕯️",
+      "title": "숨진 사람을 세어 보면",
+      "blurb": "아기 · 아이 · 사고로 떠난 사람, 한국의 기록",
+      "source": "World Bank · Our World in Data"
+    },
+    {
+      "id": "vaccine",
+      "emoji": "💉",
+      "title": "예방주사로 막는 병",
+      "blurb": "한국에서 아직도 걸리는 사람은 몇 명일까",
+      "source": "WHO 예방접종 데이터 (WIISE)"
+    },
+    {
       "id": "seoul-heat",
       "emoji": "🌡️",
       "title": "서울은 얼마나 더워졌을까",
@@ -127,13 +148,6 @@
       "title": "사람은 얼마나 오래 살까",
       "blurb": "1950년부터 지금까지, 나라마다 사는 햇수",
       "source": "Our World in Data"
-    },
-    {
-      "id": "ai",
-      "emoji": "🤖",
-      "title": "AI는 얼마나 많아졌을까",
-      "blurb": "세상에 나온 AI를 하나하나 세어 보면",
-      "source": "Epoch AI"
     }
   ]
 }

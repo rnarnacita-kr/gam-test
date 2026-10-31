@@ -805,10 +805,118 @@ topic(
     caveat="Epoch AI는 '이름난 AI'를 자기 기준(많이 인용됐거나, 기록을 깼거나, "
            "많이 쓰인 것)으로 골라 모은 목록이라, 세상의 모든 AI가 아닙니다.")
 
+# ── 사망 ─────────────────────────────────────────────────────────
+# 영아 · 5세 미만 · 자살 · 교통사고 · 전체 사망자를 한 문항씩.
+# World Bank 값은 '1천 명당 · 10만 명당' 비율이라 다섯 살도 알게 '몇 배' '1,000명 중 몇 명'으로 묻는다.
+# 사망자 수는 OWID 의 추정값 칸만 쓴다 (같은 파일의 미래 추계값 칸은 쓰지 않는다).
+_wbd = load_json("wb_death_kor.json")[1]
+WBD = {}
+for r in _wbd:
+    if r["value"] is not None:
+        WBD.setdefault(r["indicator"]["id"], {})[int(r["date"])] = r["value"]
+infant, under5 = WBD["SP.DYN.IMRT.IN"], WBD["SH.DYN.MORT"]
+suic, traf = WBD["SH.STA.SUIC.P5"], WBD["SH.STA.TRAF.P5"]
+inf_ratio = infant[1960] / infant[2024]
+suic_peak = max(suic, key=suic.get)
+traf_ratio = traf[2000] / traf[2019]
+traf_opts = ["약 1/2", "약 1/3", "약 1/4", "약 1/5"]
+deaths_kor = {int(r["year"]): float(r["deaths__sex_all__age_all__variant_estimates"])
+              for r in load_csv("deaths_per_year.csv")
+              if r["code"] == "KOR" and r["deaths__sex_all__age_all__variant_estimates"]}
+
+topic(
+    "death", "🕯️", "숨진 사람을 세어 보면",
+    "아기 · 아이 · 사고로 떠난 사람, 한국의 기록",
+    "World Bank · Our World in Data", "https://data.worldbank.org/",
+    [
+        slider("d1", "1960년 한국의 영아 사망률(돌 전에 숨지는 아기)은 2024년의 몇 배일까요?",
+               inf_ratio, "배", 1, 100, 1,
+               f"World Bank 영아 사망률(출생 1,000명당) 1960년 {infant[1960]:.1f}명 → "
+               f"2024년 {infant[2024]:.1f}명 ({inf_ratio:.1f}배)",
+               "옛날에 아기가 많이 숨졌다는 건 알아도, 얼마나 줄었는지는 대개 작게 "
+               "잡습니다."),
+        slider("d2", "1960년 한국에서 아기 1,000명이 태어나면, 다섯 살 생일 전에 몇 명이 "
+               "숨졌을까요?",
+               under5[1960], "명", 0, 200, 1,
+               f"World Bank 5세 미만 사망률(출생 1,000명당) 1960년 {under5[1960]:.1f}명 "
+               f"(2024년 {under5[2024]:.1f}명)",
+               "할머니 할아버지가 어렸을 때는 다섯 살까지 사는 것도 당연하지 "
+               "않았습니다."),
+        slider("d3", "2000~2021년 중 한국의 자살 사망률이 가장 높았던 해는 언제일까요?",
+               suic_peak, "년", 2000, 2021, 1,
+               f"World Bank 자살 사망률(인구 10만 명당) {min(suic)}~{max(suic)}년 중 "
+               f"가장 높은 해 {suic_peak}년 ({suic[suic_peak]:.1f}명)",
+               "가장 힘들었던 때는 뉴스의 기억보다 이른 경우가 많습니다. 힘들 때는 "
+               "자살예방상담전화 109에서 언제든 이야기할 수 있습니다."),
+        # 보기는 배수에 가장 가까운 것이 정답이 되게 경계를 둔다
+        choice("d4", "2019년 한국의 교통사고 사망률은 2000년의 몇 분의 1일까요?",
+               traf_opts,
+               traf_opts[0 if traf_ratio < 2.5 else 1 if traf_ratio < 3.5
+                         else 2 if traf_ratio < 4.5 else 3],
+               f"World Bank 교통사고 사망률(인구 10만 명당) 2000년 {traf[2000]:.1f}명 → "
+               f"2019년 {traf[2019]:.1f}명 ({traf_ratio:.1f}분의 1)",
+               "길이 위험하다는 느낌은 그대로여도, 숨지는 사람은 크게 줄었습니다."),
+        slider("d5", "2023년 한국에서 숨진 사람은 모두 몇 명일까요?",
+               deaths_kor[2023], "명", 0, 1_000_000, 10_000,
+               f"Our World in Data(유엔 인구 추정) 한국 2023년 사망자 "
+               f"{deaths_kor[2023]:,.0f}명",
+               f"하루로 나누면 약 {deaths_kor[2023] / 365:,.0f}명입니다. 매일 그만큼이 "
+               "떠납니다."),
+    ],
+    caveat="World Bank의 사망률은 나라 보고를 바탕으로 국제기구가 맞춰 낸 추정값이고, "
+           f"자살은 {max(suic)}년, 교통사고는 {max(traf)}년까지만 있습니다. 사망자 수는 "
+           "유엔 인구 추정값이라 통계청 집계와 조금 다를 수 있습니다.")
+
+# ── 예방접종으로 막는 병 ─────────────────────────────────────────
+# 한 문항에 한 병. 기준 해는 2024년(2025년은 확정 전 집계일 수 있다).
+# 환자 수 칸이 빈 해는 0명이 아니라 '보고 없음'으로 보고 계산에서 뺀다.
+VAX = {}
+for r in load_csv("who_cases_kor.csv"):
+    if r["CASES"].strip():
+        VAX.setdefault(r["DISEASE"], {})[int(r["YEAR"])] = int(float(r["CASES"]))
+polio_last = max(y for y, n in VAX["POLIO"].items() if n > 0)
+
+topic(
+    "vaccine", "💉", "예방주사로 막는 병",
+    "한국에서 아직도 걸리는 사람은 몇 명일까",
+    "WHO 예방접종 데이터 (WIISE)", "https://immunizationdata.who.int/",
+    [
+        slider("v1", "2024년 한국에서 백일해에 걸린 사람은 몇 명일까요?",
+               VAX["PERTUSSIS"][2024], "명", 0, 60_000, 500,
+               f"WHO에 보고된 한국 백일해 환자 수 2024년 {VAX['PERTUSSIS'][2024]:,}명 "
+               f"(2023년 {VAX['PERTUSSIS'][2023]:,}명)",
+               "옛날 병이라고 여기기 쉽지만, 어떤 해에는 갑자기 크게 번집니다."),
+        slider("v2", "2024년 한국에서 볼거리(유행성이하선염)에 걸린 사람은 몇 명일까요?",
+               VAX["MUMPS"][2024], "명", 0, 20_000, 100,
+               f"WHO에 보고된 한국 볼거리 환자 수 2024년 {VAX['MUMPS'][2024]:,}명",
+               "예방주사를 맞는 병이라 거의 없을 것 같지만, 해마다 꾸준히 나옵니다."),
+        slider("v3", "2024년 한국에서 홍역에 걸린 사람은 몇 명일까요?",
+               VAX["MEASLES"][2024], "명", 0, 200, 1,
+               f"WHO에 보고된 한국 홍역 환자 수 2024년 {VAX['MEASLES'][2024]:,}명 "
+               f"(2023년 {VAX['MEASLES'][2023]:,}명)",
+               "'사라진 병'이라는 인상과 달리, 해외에서 들어와 다시 번지기도 합니다."),
+        slider("v4", "2024년 한국에서 일본뇌염에 걸린 사람은 몇 명일까요?",
+               VAX["JAPENC"][2024], "명", 0, 100, 1,
+               f"WHO에 보고된 한국 일본뇌염 환자 수 2024년 {VAX['JAPENC'][2024]:,}명",
+               "모기에 물려 걸리는 병이라 남의 나라 이야기 같지만, 한국에서도 해마다 "
+               "나옵니다."),
+        slider("v5", "한국에서 소아마비 환자가 마지막으로 나온 해는 언제일까요?",
+               polio_last, "년", 1970, 2025, 1,
+               f"WHO에 보고된 한국 소아마비 환자 수가 1명 이상인 마지막 해 {polio_last}년 "
+               f"({VAX['POLIO'][polio_last]}명, 숫자가 빈 해는 보고 없음으로 뺌)",
+               "예방주사 하나가 병 하나를 한 나라에서 거의 지워 버리기도 합니다."),
+    ],
+    caveat="병원에서 신고되어 WHO에 보고된 환자 수라, 병원에 가지 않았거나 신고되지 "
+           "않은 환자는 빠져 있습니다. 숫자가 비어 있는 해는 0명이 아니라 보고가 "
+           "없는 것으로 보고 뺐습니다.")
+
 
 # ════════════════════════════════════════════════════════════════
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
+    # 내가 만든 주제를 위로, 만든 순서대로. 나머지는 원래 순서 그대로 (sort 는 순서를 지킨다)
+    MINE = ("ai", "death", "vaccine")
+    TOPICS.sort(key=lambda t: MINE.index(t["id"]) if t["id"] in MINE else len(MINE))
     index = []
     for t in TOPICS:
         assert len(t["questions"]) == 5, f"{t['id']}: 문항이 5개가 아닙니다"

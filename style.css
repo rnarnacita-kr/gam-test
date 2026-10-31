@@ -414,3 +414,22 @@ html:has(#view-home:not([hidden])) body::before {
 #view-home .tscore { color: #9d211a; font-size: 12px; }
 @media(max-width:360px){ #app {padding-left:14px;padding-right:14px;} #view-home .tcard{padding-left:11px;padding-right:19px;} #view-home .ttitle{font-size:13px;} #view-home .tblurb{font-size:11px;} }
 
+
+/* ── 문항 화면: 밝게 ──────────────────────────────────────
+   문제를 푸는 동안은 밝은 종이 바탕에 진한 글씨로 읽기 쉽게.
+   첫 화면 · 결과 화면은 그대로 둔다. */
+#view-quiz {
+  --bg: #faf6ee;
+  --card: #ffffff;
+  --line: #e2d9c8;
+  --ink: #1f1a17;
+  --muted: #6b625a;
+  --brand: #c62828;
+  color: var(--ink);
+}
+html:has(#view-quiz:not([hidden])),
+html:has(#view-quiz:not([hidden])) body { background: #faf6ee; }
+#view-quiz .primary { color: #ffffff; }
+#view-quiz .linkish { color: var(--muted); }
+#view-quiz .choice { box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+#view-quiz .choice[aria-pressed="true"] { background: #fdeceb; border-color: var(--brand); }

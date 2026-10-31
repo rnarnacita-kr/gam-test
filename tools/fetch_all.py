@@ -140,6 +140,27 @@ SOURCES: list[tuple[str, str, str]] = [
      "https://ourworldindata.org/grapher/measles-cases-and-death.csv"
      "?csvType=full&useColumnShortNames=true"),
 
+    ("who_cases_kor.csv",
+     "한국 질병별 보고 환자 수 — 홍역·백일해·디프테리아·소아마비·볼거리 등 (WHO WIISE)",
+     "https://xmart-api-public.who.int/WIISE/MT_AD_INC_LONG"
+     "?$format=csv&$filter=CODE%20eq%20'KOR'"),
+
+    ("wb_death_kor.json",
+     "한국 사망 지표 — 조사망률·영아·5세 미만·산모·자살·교통사고 (World Bank)",
+     "https://api.worldbank.org/v2/country/KOR/indicator/"
+     "SP.DYN.CDRT.IN;SP.DYN.IMRT.IN;SH.DYN.MORT;SH.STA.MMRT;SH.STA.SUIC.P5;SH.STA.TRAF.P5"
+     "?format=json&per_page=2000&source=2"),
+
+    ("deaths_per_year.csv",
+     "나라별 한 해 사망자 수 1950~2100 — 추정값·미래 추계값 칸이 따로 (Our World in Data · UN WPP)",
+     "https://ourworldindata.org/grapher/number-of-deaths-per-year.csv"
+     "?csvType=full&useColumnShortNames=true"),
+
+    ("child_mortality.csv",
+     "나라별 아동(5세 미만) 사망률 (Our World in Data)",
+     "https://ourworldindata.org/grapher/child-mortality.csv"
+     "?csvType=full&useColumnShortNames=true"),
+
     ("epoch_notable_ai_models.csv",
      "주요 AI 모델 목록 — 발표일·기관·분야·매개변수·학습 연산량 (Epoch AI)",
      "https://epoch.ai/data/notable_ai_models.csv"),
