@@ -433,3 +433,37 @@ html:has(#view-quiz:not([hidden])) body { background: #faf6ee; }
 #view-quiz .linkish { color: var(--muted); }
 #view-quiz .choice { box-shadow: 0 1px 3px rgba(0,0,0,.06); }
 #view-quiz .choice[aria-pressed="true"] { background: #fdeceb; border-color: var(--brand); }
+
+/* ── 결과(답지) 화면: 경각심 ───────────────────────────────
+   검붉은 바탕에 경고 빨강, 실제 값(정답)은 경고 노랑으로 눈에 띄게.
+   점수 카드 위에는 경고 띠. 첫 화면 · 문항 화면은 그대로 둔다. */
+#view-result {
+  --bg: #120607;
+  --card: #1e0b0c;
+  --line: #4d1b1b;
+  --ink: #f8ece9;
+  --muted: #c9a7a1;
+  --brand: #ff3b30;          /* 경고 빨강 */
+  --ok: #ffc107;             /* 실제 값 · 맞힘 = 경고 노랑 */
+  --miss: #ff6b6b;
+  --warn: #ffc107;
+  color: var(--ink);
+}
+html:has(#view-result:not([hidden])),
+html:has(#view-result:not([hidden])) body {
+  background: radial-gradient(900px 600px at 50% -10%, #3a0d0e, #120607);
+}
+#view-result .score-card {
+  position: relative; overflow: hidden; border-color: #7a1f1f;
+  box-shadow: 0 0 0 1px rgba(255,59,48,.25), 0 10px 26px rgba(0,0,0,.55);
+}
+#view-result .score-card::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 6px;
+  background: repeating-linear-gradient(-45deg, #ffc107 0 10px, #1a0a0a 10px 20px);
+}
+#view-result .ai { background: linear-gradient(135deg, #3a1012, #1e0b0c); border-color: #7a1f1f; }
+#view-result .card { border-left: 3px solid var(--brand); }
+#view-result .pill.both { background: rgba(255,193,7,.14); }
+#view-result .track .live { box-shadow: 0 0 0 4px rgba(255,193,7,.22); }
+#view-result .primary { background: var(--brand); color: #ffffff; }
+#view-result .caveat { border-color: var(--warn); }
